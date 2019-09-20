@@ -78,6 +78,12 @@ public class WeatherController extends AppCompatActivity {
             @Override
             public void onLocationChanged(Location location) {
                 Log.d("Clima", "OnLocationChanged() callback recieved");
+
+                String longitude = String.valueOf(location.getLongitude());
+                String latitude = String.valueOf(location.getLatitude());
+
+                Log.d("Clima", "longitude is: " + longitude);
+                Log.d("Clima", "latitude is " + latitude);
             }
 
             @Override
