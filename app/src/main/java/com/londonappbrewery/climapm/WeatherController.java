@@ -15,6 +15,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
 
 public class WeatherController extends AppCompatActivity {
     final int REQUEST_CODE = 123;
@@ -84,6 +92,13 @@ public class WeatherController extends AppCompatActivity {
 
                 Log.d("Clima", "longitude is: " + longitude);
                 Log.d("Clima", "latitude is " + latitude);
+
+                RequestParams params = new RequestParams();
+                params.put("Lat", latitude);
+                params.put("Lon", longitude);
+                params.put("Appid", APP_ID);
+
+                letsDoSomeNetworking(params);
             }
 
             @Override
@@ -129,7 +144,18 @@ public class WeatherController extends AppCompatActivity {
             }
         }
 // TODO: Add letsDoSomeNetworking(RequestParams params) here:
+    private void letsDoSomeNetworking(RequestParams params){
 
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(WEATHER_URL, params, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response){
+
+            }
+        });
+    }
 
         // TODO: Add updateUI() here:
 
