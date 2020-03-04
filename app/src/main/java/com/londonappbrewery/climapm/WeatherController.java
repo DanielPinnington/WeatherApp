@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -27,9 +28,9 @@ import cz.msebera.android.httpclient.Header;
 public class WeatherController extends AppCompatActivity {
     final int REQUEST_CODE = 123;
     // Constants:
-    final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather";
+    final String WEATHER_URL = "https://openweathermap.org/api";
     // App ID to use OpenWeather data
-    final String APP_ID = "4dc9dd403d50ae0c6bc9f33bf55186a8";
+    final String APP_ID = "c9b84994e35f46a087818883f36547d6";
     // Time between location updates (5000 milliseconds or 5 seconds)
     final long MIN_TIME = 5000;
     // Distance between location updates (1000m or 1km)
@@ -153,7 +154,15 @@ public class WeatherController extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response){
 
+                Log.d("Clima", "Success! JSON:" + response.toString());
             }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response){
+                Log.e("Clima", "Fail " + e.toString());
+                Log.d("Clima", "Status Code" + statusCode);
+                Toast.makeText(WeatherController.this, "Request Failed", Toast.LENGTH_SHORT).show();
+        }
         });
     }
 
